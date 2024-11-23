@@ -73,7 +73,7 @@ public class CustomerView extends javax.swing.JFrame {
         heading.setText("Customers");
         heading.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
         heading.setOpaque(true);
-        jPanel1.add(heading, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 150, 50));
+        jPanel1.add(heading, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 150, 50));
 
         customerNameLable.setBackground(new java.awt.Color(255, 255, 255));
         customerNameLable.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -152,7 +152,7 @@ public class CustomerView extends javax.swing.JFrame {
         searchButton.setText("Search");
         jPanel1.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 110, 40));
 
-        wrapper.setIcon(new javax.swing.ImageIcon("D:\\Projects_Learn\\Fullstack\\Springboot Academy\\Java Desktop Application Development\\5 JDBC\\Codes\\1,2,3,4\\PoSApp\\src\\main\\java\\assets\\images\\background2.jpg")); // NOI18N
+        wrapper.setIcon(new javax.swing.ImageIcon("D:\\Projects_Learn\\Fullstack\\Springboot Academy\\Java Desktop Application Development\\5 JDBC\\Codes\\1,2,3,4\\PoSDesktopApp\\src\\main\\java\\assets\\images\\background2.jpg")); // NOI18N
         jPanel1.add(wrapper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -4,6 +4,12 @@
  */
 package view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MADEESHA
@@ -33,7 +39,7 @@ public class CustomerView extends javax.swing.JFrame {
         customerNameLable = new javax.swing.JLabel();
         customerName = new javax.swing.JTextField();
         customerAddressLable = new javax.swing.JLabel();
-        customerAdress = new javax.swing.JTextField();
+        customerAddress = new javax.swing.JTextField();
         customerContactLable = new javax.swing.JLabel();
         customerContact = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
@@ -99,22 +105,22 @@ public class CustomerView extends javax.swing.JFrame {
         customerAddressLable.setBackground(new java.awt.Color(255, 255, 255));
         customerAddressLable.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerAddressLable.setForeground(new java.awt.Color(0, 0, 51));
-        customerAddressLable.setText("  Customer Adress");
+        customerAddressLable.setText("  Customer Address");
         customerAddressLable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
         customerAddressLable.setOpaque(true);
         jPanel1.add(customerAddressLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 180, 40));
 
-        customerAdress.setBackground(new java.awt.Color(255, 255, 255));
-        customerAdress.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        customerAdress.setForeground(new java.awt.Color(0, 0, 51));
-        customerAdress.setToolTipText("");
-        customerAdress.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        customerAdress.addActionListener(new java.awt.event.ActionListener() {
+        customerAddress.setBackground(new java.awt.Color(255, 255, 255));
+        customerAddress.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        customerAddress.setForeground(new java.awt.Color(0, 0, 51));
+        customerAddress.setToolTipText("");
+        customerAddress.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        customerAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customerAdressActionPerformed(evt);
+                customerAddressActionPerformed(evt);
             }
         });
-        jPanel1.add(customerAdress, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 250, 40));
+        jPanel1.add(customerAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 250, 40));
 
         customerContactLable.setBackground(new java.awt.Color(255, 255, 255));
         customerContactLable.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -217,9 +223,9 @@ public class CustomerView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_customerNameActionPerformed
 
-    private void customerAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAdressActionPerformed
+    private void customerAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_customerAdressActionPerformed
+    }//GEN-LAST:event_customerAddressActionPerformed
 
     private void customerContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerContactActionPerformed
         // TODO add your handling code here:
@@ -242,7 +248,96 @@ public class CustomerView extends javax.swing.JFrame {
     }//GEN-LAST:event_viewButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
+        String id = customerId.getText();
+        String name = customerName.getText();
+        String address = customerAddress.getText();
+        String contactString = customerContact.getText();
+        
+//        int contact = Integer.parseInt(customerContact.getText());
+//        System.out.println(id);
+//        System.out.println(name);
+//        System.out.println(address);
+//        System.out.println(contact);
+
+        // Input validation to check if fields are empty
+        if (name.isBlank()|| contactString.isBlank()|| id.isBlank()) { //isEmpty() get "   " false.
+            JOptionPane.showMessageDialog(rootPane, "Please fill out all required fields!");
+        return; // Stop further execution if validation fails
+        }
+        
+        //avoid "" as input.
+        if (address.isBlank()) {
+            address = null;
+            /*
+            if input field enter "NULL" or "null" is not considerd as null,
+            but if we enter "NULL" , we can not identify it in thhe database, so
+            delete from customer where customer_adress = "NULL" or customer_adress = "";
+            it will delete only fake nulls and empty spaces, real nulls will be remainning.
+            DELETE FROM customer WHERE customer_address IS NULL OR customer_address = '';// correct
+            */
+        }
+        
+        // check Integer input
+        try {
+            // Handle invalid contact number input
+            int contactInt = Integer.parseInt(contactString); // Parsing contact to integer
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid contact number. Please enter a valid integer.");
+            return; // Stop further execution if contact parsing fails
+        }
+        
+        int contactInt = Integer.parseInt(contactString);
+
+//      connect with database
+
+        String url = "jdbc:mysql://localhost:3306/posdesktopapp";
+        String userName = "root";
+        String password = "8015";
+        
+        //create connection object
+        Connection connection = null;
+        //create prepared statement object
+        PreparedStatement preparedStatement = null;
+        
+        // SQL query to insert data to customer
+        String sql = "INSERT INTO customer VALUES(?,?,?,?)";
+
+        // exception handling in java
+        try {
+            //load JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //extablish connection/connect
+            connection = DriverManager.getConnection(url, userName, password);
+            //prepare sql statement for security, we use prepared statement interface
+            preparedStatement = connection.prepareCall(sql);
+            preparedStatement.setString(1,id);
+            preparedStatement.setString(2,name);
+            preparedStatement.setString(3,address);
+            preparedStatement.setInt(4,contactInt);
+            
+            // for execute/press enter button, it is return no.of changed rows(same as sql cmd)
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Customer added successfully!");
+                //clear input field
+                clearCustomerField();//click ctrl + left click to modify
+//                customerId.setText("");
+//                customerName.setText("");
+//                customerAddress.setText("");
+//                customerContact.setText("");
+                
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+
+//        } catch(ClassNotFoundException ex) {
+//            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+//        } catch(SQLException ex) {
+//            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+//        }
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     /**
@@ -279,11 +374,19 @@ public class CustomerView extends javax.swing.JFrame {
             }
         });
     }
+    
+    // method for clear customer field
+    public void clearCustomerField() {
+        customerId.setText("");
+        customerName.setText("");
+        customerAddress.setText("");
+        customerContact.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JTextField customerAddress;
     private javax.swing.JLabel customerAddressLable;
-    private javax.swing.JTextField customerAdress;
     private javax.swing.JTextField customerContact;
     private javax.swing.JLabel customerContactLable;
     private javax.swing.JTextField customerId;

@@ -5,7 +5,7 @@ use posdesktopapp;
 create table customer(
 	customer_id varchar(10) PRIMARY KEY,
 	customer_name varchar(50) NOT NULL,
-	customer_adress varchar(50),
+	customer_address varchar(50),
 	customer_contact int(10) NOT NULL
 );
 

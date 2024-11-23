@@ -51,6 +51,7 @@ public class CustomerView extends javax.swing.JFrame {
         customerId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerId.setForeground(new java.awt.Color(0, 0, 51));
         customerId.setToolTipText("");
+        customerId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         customerId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerIdActionPerformed(evt);
@@ -67,11 +68,11 @@ public class CustomerView extends javax.swing.JFrame {
         jPanel1.add(customerIdLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 180, 40));
 
         heading.setBackground(new java.awt.Color(51, 51, 255));
-        heading.setFont(new java.awt.Font("Impact", 1, 24)); // NOI18N
-        heading.setForeground(new java.awt.Color(0, 0, 51));
+        heading.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        heading.setForeground(new java.awt.Color(255, 255, 255));
         heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         heading.setText("Customers");
-        heading.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        heading.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 51), 3));
         heading.setOpaque(true);
         jPanel1.add(heading, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 150, 50));
 
@@ -87,6 +88,7 @@ public class CustomerView extends javax.swing.JFrame {
         customerName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerName.setForeground(new java.awt.Color(0, 0, 51));
         customerName.setToolTipText("");
+        customerName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         customerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerNameActionPerformed(evt);
@@ -106,6 +108,7 @@ public class CustomerView extends javax.swing.JFrame {
         customerAdress.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerAdress.setForeground(new java.awt.Color(0, 0, 51));
         customerAdress.setToolTipText("");
+        customerAdress.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         customerAdress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerAdressActionPerformed(evt);
@@ -125,6 +128,7 @@ public class CustomerView extends javax.swing.JFrame {
         customerContact.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerContact.setForeground(new java.awt.Color(0, 0, 51));
         customerContact.setToolTipText("");
+        customerContact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         customerContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerContactActionPerformed(evt);
@@ -132,12 +136,31 @@ public class CustomerView extends javax.swing.JFrame {
         });
         jPanel1.add(customerContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, 250, 40));
 
+        addButton.setBackground(new java.awt.Color(51, 51, 255));
+        addButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
         addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 110, 40));
 
+        updateButton.setBackground(new java.awt.Color(51, 51, 255));
+        updateButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        updateButton.setForeground(new java.awt.Color(255, 255, 255));
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(updateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 110, 40));
 
+        removeButoon.setBackground(new java.awt.Color(51, 51, 255));
+        removeButoon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        removeButoon.setForeground(new java.awt.Color(255, 255, 255));
         removeButoon.setText("Remove");
         removeButoon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,10 +169,26 @@ public class CustomerView extends javax.swing.JFrame {
         });
         jPanel1.add(removeButoon, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 400, 110, 40));
 
+        viewButton.setBackground(new java.awt.Color(51, 51, 255));
+        viewButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        viewButton.setForeground(new java.awt.Color(255, 255, 255));
         viewButton.setText("View");
+        viewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(viewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 110, 40));
 
+        searchButton.setBackground(new java.awt.Color(51, 51, 255));
+        searchButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        searchButton.setForeground(new java.awt.Color(255, 255, 255));
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 110, 40));
 
         wrapper.setIcon(new javax.swing.ImageIcon("D:\\Projects_Learn\\Fullstack\\Springboot Academy\\Java Desktop Application Development\\5 JDBC\\Codes\\1,2,3,4\\PoSDesktopApp\\src\\main\\java\\assets\\images\\background2.jpg")); // NOI18N
@@ -189,6 +228,22 @@ public class CustomerView extends javax.swing.JFrame {
     private void removeButoonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButoonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_removeButoonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments

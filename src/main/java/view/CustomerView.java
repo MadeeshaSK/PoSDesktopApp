@@ -338,6 +338,7 @@ public class CustomerView extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
 //        }
 
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     /**

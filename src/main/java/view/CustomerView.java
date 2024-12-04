@@ -26,6 +26,7 @@ public class CustomerView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         customerTable = new javax.swing.JTable();
         customerId = new javax.swing.JTextField();
+        clearButton = new javax.swing.JButton();
         customerIdLable = new javax.swing.JLabel();
         heading = new javax.swing.JLabel();
         customerNameLable = new javax.swing.JLabel();
@@ -87,6 +88,17 @@ public class CustomerView extends javax.swing.JFrame {
             }
         });
         jPanel1.add(customerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 250, 40));
+
+        clearButton.setBackground(new java.awt.Color(51, 51, 255));
+        clearButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        clearButton.setForeground(new java.awt.Color(255, 255, 255));
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clearButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 210, 110, 40));
 
         customerIdLable.setBackground(new java.awt.Color(255, 255, 255));
         customerIdLable.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -218,7 +230,7 @@ public class CustomerView extends javax.swing.JFrame {
                 searchButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 110, 40));
+        jPanel1.add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 110, 40));
 
         wrapper.setIcon(new javax.swing.ImageIcon("D:\\Projects_Learn\\Fullstack\\Springboot Academy\\Java Desktop Application Development\\5 JDBC\\Codes\\1,2,3,4\\PoSDesktopApp\\src\\main\\java\\assets\\images\\background2.jpg")); // NOI18N
         jPanel1.add(wrapper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 750));
@@ -239,7 +251,53 @@ public class CustomerView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
+        String id = customerId.getText().trim();
+        String name = customerName.getText().trim();
+        String address = customerAddress.getText().trim();
+        String contactString = customerContact.getText().trim();
+
+        if (id.isBlank() && name.isBlank() && address.isBlank() && contactString.isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "Please fill at least one field!");
+            return;
+        }
+
+        String url = "jdbc:mysql://localhost:3306/posdesktopapp";
+        String userName = "root";
+        String password = "8015";
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM customer WHERE 1=1");
+        if (!id.isBlank()) sql.append(" AND customer_id = ?");
+        if (!name.isBlank()) sql.append(" AND customer_name LIKE ?");
+        if (!address.isBlank()) sql.append(" AND customer_address LIKE ?");
+        if (!contactString.isBlank()) sql.append(" AND customer_contact LIKE ?");
+
+        try (Connection connection = DriverManager.getConnection(url, userName, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString())) {
+
+            int paramIndex = 1;
+            if (!id.isBlank()) preparedStatement.setString(paramIndex++, id);
+            if (!name.isBlank()) preparedStatement.setString(paramIndex++, "%" + name + "%");
+            if (!address.isBlank()) preparedStatement.setString(paramIndex++, "%" + address + "%");
+            if (!contactString.isBlank()) preparedStatement.setString(paramIndex++, "%" + contactString + "%");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                boolean found = false;
+                while (resultSet.next()) {
+                    found = true;
+                    customerId.setText(resultSet.getString("customer_id"));
+                    customerName.setText(resultSet.getString("customer_name"));
+                    customerAddress.setText(resultSet.getString("customer_address"));
+                    customerContact.setText(String.valueOf(resultSet.getInt("customer_contact")));
+                }
+
+                if (!found) {
+                    JOptionPane.showMessageDialog(rootPane, "No matching customers found.");
+                    clearCustomerField();
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
@@ -318,7 +376,63 @@ public class CustomerView extends javax.swing.JFrame {
     }//GEN-LAST:event_viewButtonActionPerformed
 
     private void removeButoonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButoonActionPerformed
-        // TODO add your handling code here:
+        // Get customer ID
+        String id = customerId.getText();
+
+        // Input validation to check if the ID field is empty
+        if (id.isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "Please enter the Customer ID to delete!");
+            return; // Stop further execution if validation fails
+        }
+
+        // Database connection details
+        String url = "jdbc:mysql://localhost:3306/posdesktopapp";
+        String userName = "root";
+        String password = "8015";
+
+        // Connection and prepared statement objects
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        // SQL query to delete a customer by ID
+        String sql = "DELETE FROM customer WHERE customer_id = ?";
+
+        try {
+            // Load JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Establish connection
+            connection = DriverManager.getConnection(url, userName, password);
+            // Prepare SQL statement
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+
+            // Execute the delete operation
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Customer deleted successfully!");
+                // Clear the ID field
+                clearCustomerField();
+                // update table
+                searchAllData();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No customer found with the given ID!");
+                clearCustomerField();
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_removeButoonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
@@ -383,6 +497,8 @@ public class CustomerView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Updated successfully!");
                 //clear input field
                 clearCustomerField();//click ctrl + left click to modify.
+                // update table
+                searchAllData();
 
             }
 
@@ -481,6 +597,8 @@ public class CustomerView extends javax.swing.JFrame {
                 //                customerName.setText("");
                 //                customerAddress.setText("");
                 //                customerContact.setText("");
+                // update table
+                searchAllData();
 
             }
 
@@ -594,6 +712,10 @@ public class CustomerView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_customerIdActionPerformed
 
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        clearCustomerField();
+    }//GEN-LAST:event_clearButtonActionPerformed
+
     
     public static void main(String args[]) {
         try {
@@ -693,6 +815,7 @@ public class CustomerView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JButton clearButton;
     private javax.swing.JTextField customerAddress;
     private javax.swing.JLabel customerAddressLable;
     private javax.swing.JTextField customerContact;

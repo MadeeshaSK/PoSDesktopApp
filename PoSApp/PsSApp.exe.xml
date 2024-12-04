@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>D:\Projects_Learn\Fullstack\Springboot Academy\Java Desktop Application Development\5 JDBC\Codes\1,2,3,4\PoSDesktopApp\target\PoSApp-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>
+  <outfile>D:\Projects_Learn\Fullstack\Springboot Academy\Java Desktop Application Development\5 JDBC\Codes\1,2,3,4\PoSDesktopApp\PoSApp\PoSApp.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>D:\Projects_Learn\Fullstack\Springboot Academy\Java Desktop Application Development\5 JDBC\Codes\1,2,3,4\PoSDesktopApp\src\main\java\assets\images\cashier_icon-icons.com_53629.ico</icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion></minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.1.1.1</fileVersion>
+    <txtFileVersion>1.1.1.1</txtFileVersion>
+    <fileDescription>PoS desktop application for small scale bisnesses.</fileDescription>
+    <copyright>MadeeshaSk/PoSApplication@GitHub</copyright>
+    <productVersion>1.1.1.1</productVersion>
+    <txtProductVersion>1.1.1.1</txtProductVersion>
+    <productName>PoSApp</productName>
+    <companyName>Madeesha</companyName>
+    <internalName>PoSApp</internalName>
+    <originalFilename>PoSApp.exe</originalFilename>
+    <trademarks>PoSApp</trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>

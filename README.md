@@ -6,3 +6,5 @@ This project helped me explore the fundamentals of desktop application developme
 
 The application was developed without adhering to a specific architectural pattern, such as MVC or layered architecture. 
 The focus was on implementing core functionality and delivering the required features efficiently.
+
+The released version of the application can be found in the 'Releases' section.

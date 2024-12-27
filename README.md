@@ -1,3 +1,5 @@
+Used : Java Swing | MySQL | Netbeans IDE
+
 My First Desktop Application 🚀 This is my first desktop application, created as part of my learning journey.
 
 📚✨ It is built using Java ☕ and Java Swing 🎨 for the graphical user interface (GUI).

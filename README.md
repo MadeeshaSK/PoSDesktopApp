@@ -1,7 +1,7 @@
 Used : Java Swing | MySQL | Netbeans IDE
 
 The application was developed without adhering to a specific architectural pattern, such as MVC or layered architecture. 
-The focus was on implementing core functionality and delivering the required features efficiently.
+The focus was on implementing core functionality and delivering the required features efficiently.Just single interface.
 
 My First Desktop Application 🚀 This is my first desktop application, created as part of my learning journey.
 
